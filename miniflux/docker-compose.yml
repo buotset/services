@@ -1,0 +1,34 @@
+services:
+  miniflux-db:
+    image: postgres:15-alpine
+    container_name: miniflux-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: miniflux
+      POSTGRES_PASSWORD: CHANGE_ME
+      POSTGRES_DB: miniflux
+    volumes:
+      - miniflux-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "miniflux"]
+      interval: 10s
+      retries: 5
+
+  miniflux:
+    image: miniflux/miniflux:latest
+    container_name: miniflux
+    restart: unless-stopped
+    ports:
+      - "8090:8080"
+    environment:
+      DATABASE_URL: postgres://miniflux:CHANGE_ME@miniflux-db/miniflux?sslmode=disable
+      RUN_MIGRATIONS: "1"
+      CREATE_ADMIN: "1"
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: CHANGE_ME
+    depends_on:
+      miniflux-db:
+        condition: service_healthy
+
+volumes:
+  miniflux-db:

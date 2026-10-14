@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>suobdesk</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f0f0f;
+      color: #e0e0e0;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #888;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.08em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 800px;
+    }
+    a.card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.2rem 1.4rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    a.card:hover {
+      border-color: #555;
+      background: #222;
+    }
+    .card-name {
+      font-size: 0.95rem;
+      color: #d4d4d4;
+      font-weight: 500;
+    }
+    .card-desc {
+      font-size: 0.78rem;
+      color: #666;
+    }
+    .card-port {
+      font-size: 0.72rem;
+      color: #444;
+      margin-top: 0.2rem;
+    }
+    footer {
+      margin-top: 3rem;
+      font-size: 0.72rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>suobdesk</h1>
+  <div class="grid">
+    <a class="card" href="http://YOUR_TAILSCALE_IP:8888">
+      <span class="card-name">SearXNG</span>
+      <span class="card-desc">Meta-search. Privacy-respecting.</span>
+      <span class="card-port">:8888</span>
+    </a>
+    <a class="card" href="http://YOUR_TAILSCALE_IP:8090">
+      <span class="card-name">Miniflux</span>
+      <span class="card-desc">RSS reader.</span>
+      <span class="card-port">:8090</span>
+    </a>
+    <a class="card" href="http://YOUR_TAILSCALE_IP:8091">
+      <span class="card-name">Wikindx</span>
+      <span class="card-desc">Reference manager. Zotero replacement.</span>
+      <span class="card-port">:8091</span>
+    </a>
+    <a class="card" href="http://YOUR_TAILSCALE_IP:3001">
+      <span class="card-name">Uptime Kuma</span>
+      <span class="card-desc">Service monitoring.</span>
+      <span class="card-port">:3001</span>
+    </a>
+    <a class="card" href="http://YOUR_TAILSCALE_IP:8092">
+      <span class="card-name">Nextcloud</span>
+      <span class="card-desc">Local file backup &amp; sync.</span>
+      <span class="card-port">:8092</span>
+    </a>
+    <a class="card" href="http://YOUR_TAILSCALE_IP:8093">
+      <span class="card-name">Forgejo</span>
+      <span class="card-desc">Self-hosted Git.</span>
+      <span class="card-port">:8093</span>
+    </a>
+  </div>
+  <footer>accessible over Tailscale · YOUR_TAILSCALE_IP</footer>
+</body>
+</html>

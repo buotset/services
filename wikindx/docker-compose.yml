@@ -1,0 +1,49 @@
+services:
+  wikindx-db:
+    image: mariadb:11
+    container_name: wikindx-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: CHANGE_ME
+      MYSQL_DATABASE: wikindx
+      MYSQL_USER: wikindx
+      MYSQL_PASSWORD: CHANGE_ME
+    volumes:
+      - wikindx-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      retries: 5
+
+  wikindx-fpm:
+    image: byterazor/wikindx:fpm-latest
+    container_name: wikindx-fpm
+    restart: unless-stopped
+    environment:
+      WIKINDX_DB_HOST: wikindx-db:3306
+      WIKINDX_DB: wikindx
+      WIKINDX_DB_USER: wikindx
+      WIKINDX_DB_PASSWORD: CHANGE_ME
+    volumes:
+      - ./config.php:/var/www/html/config.php:ro
+    depends_on:
+      wikindx-db:
+        condition: service_healthy
+
+  wikindx:
+    image: byterazor/wikindx:nginx-latest
+    container_name: wikindx
+    restart: unless-stopped
+    ports:
+      - "8091:8080"
+    environment:
+      WIKINDX_DB_HOST: wikindx-db:3306
+      WIKINDX_DB: wikindx
+      WIKINDX_DB_USER: wikindx
+      WIKINDX_DB_PASSWORD: CHANGE_ME
+      WIKINDX_FPM_URL: wikindx-fpm:9000
+    depends_on:
+      - wikindx-fpm
+
+volumes:
+  wikindx-db:

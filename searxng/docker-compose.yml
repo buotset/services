@@ -9,3 +9,4 @@ services:
       SEARXNG_BASE_URL: "http://localhost:8888/"
     volumes:
       - /path/to/searxng-config:/etc/searxng
+      - ./plugins/ai_filter.py:/usr/local/searxng/searx/plugins/ai_filter.py:ro

@@ -26,7 +26,7 @@ Each service is independent. Bring them up or down individually.
 
 ## Notes
 
-- SearXNG config (`settings.yml`) lives separately at `~/.searxng/` on the host — mount it at `/etc/searxng` in the container.
+- SearXNG config (`settings.yml`) lives separately at `~/.searxng/` on the host — mount it at `/etc/searxng` in the container. See [`searxng/README.md`](searxng/README.md) for the AI content filter plugin and example config.
 - WIKINDX requires a `config.php` mounted into the fpm container — not included here.
 - Forgejo runs its first-time setup wizard on first visit.
 - All services are internal-only; no ports are exposed to the public internet.
